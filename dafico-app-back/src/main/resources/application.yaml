@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: dafico
+  datasource:
+    url: jdbc:postgresql://localhost:5432/daficodb
+    username: dafico
+    password: dafico123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update # Crea las tablas automáticamente si no existen
+    show-sql: true     # Muestra las consultas SQL en la consola (útil para debugear)
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8080 # Puerto por defecto de Spring Boot
