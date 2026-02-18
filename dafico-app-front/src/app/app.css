@@ -1,0 +1,120 @@
+/* Contenedor principal del formulario */
+form {
+  max-width: 450px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Espaciado entre grupos */
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-title {
+  display: table;      /* Hace que el contenedor mida lo mismo que el texto */
+  margin: 0 auto 2rem; /* Centra el bloque y da espacio abajo */
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.form-title::after {
+  content: "";
+  display: block;
+  width: 0; 
+  height: 3px;
+  background-color: #4a90e2;
+  margin-top: 5px;
+  border-radius: 2px;
+  animation: expandirLinea 0.8s ease forwards; /* Animación de entrada */
+}
+
+@keyframes expandirLinea {
+  to { width: 100%; }
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+/* Estilo para inputs de texto, select y fecha */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+/* Estilo para los Radio Buttons */
+.radio-group {
+  display: flex;
+  gap: 20px;
+  padding: 5px 0;
+}
+
+.radio-group input[type="radio"] {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.radio-group label {
+  font-weight: normal;
+  cursor: pointer;
+}
+
+/* Botón de Registro */
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+/* Color dinámico del botón (Opcional, requiere lógica en el componente) */
+button[type="submit"] {
+  background-color: #28a745; /* Verde por defecto */
+  color: white;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:not(:disabled):hover {
+  filter: brightness(90%);
+  transform: translateY(-1px);
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 480px) {
+  form {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+}

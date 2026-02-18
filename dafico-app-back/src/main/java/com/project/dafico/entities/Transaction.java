@@ -4,9 +4,8 @@ package com.project.dafico.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -21,12 +20,17 @@ public class Transaction {
     @Column(nullable = false)
     private String type; // "INCOME" o "EGRESS"
 
+    @Column(nullable = false)
+    private String category;
+
     @Column(nullable = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     @Column(nullable = false)
-    private Double value;
+    private BigDecimal value;
+
+    private String description;
 
 
 }

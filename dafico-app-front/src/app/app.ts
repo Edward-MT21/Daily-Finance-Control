@@ -14,21 +14,20 @@ export class App {
   private fb = inject(FormBuilder);
   transactionForm!: FormGroup;
   private transactionService = inject(TransactionService);
+  categories = ['HOME', 'AGRICULTURE', 'FEEDING', 'TRANSPORT', 'HEALTH'];
 
   ngOnInit(): void {
     // Obtener date actual en formato YYYY-MM-DD
     const hoy = new Date().toISOString().substring(0, 10);
 
     this.transactionForm = this.fb.group({
-      type: ['INGRESO', Validators.required], // 'INGRESO' por defecto
-      date: [hoy, Validators.required],      // date actual por defecto
-      value: ['', [Validators.required, Validators.min(1)]]
+      type: ['INCOME', Validators.required], // 'INCOME' by default
+      category: ['HOME', [Validators.required]],
+      date: [hoy, Validators.required],      // date current by default
+      value: ['', [Validators.required, Validators.min(1)]],
+      description: ['']
     });
-    
-
   }
-
-
 
   onSubmit() {
     if (this.transactionForm.valid) {
@@ -49,6 +48,14 @@ export class App {
         }
       });
     }
+  }
+
+  get filteredCategories() {
+    const type = this.transactionForm.get('type')?.value;
+    if (type === 'INCOME') {
+      return ['HOME', 'INVESTMENT', 'OTHER_INCOME'];
+    }
+    return ['HOME', 'AGRICULTURE', 'FEEDING', 'TRANSPORT'];
   }
 
 }

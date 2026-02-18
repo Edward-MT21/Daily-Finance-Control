@@ -1,13 +1,25 @@
 <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+
+  <h2 class="form-title">Movement record</h2>
+
   <div class="form-group">
     <label>Type:</label>
     <div class="radio-group">
       <input type="radio" id="ingreso" value="INCOME" formControlName="type">
       <label for="INCOME">Income</label>
-      
+
       <input type="radio" id="egress" value="EGRESS" formControlName="type">
       <label for="egress">Egress</label>
     </div>
+  </div>
+
+  <div class="form-group">
+    <label for="category">Categoría:</label>
+    <select id="category" formControlName="category" class="form-control">
+      @for (cat of filteredCategories; track cat) {
+      <option [value]="cat">{{ cat }}</option>
+      }
+    </select>
   </div>
 
   <div class="form-group">
@@ -20,10 +32,17 @@
     <input type="number" id="value" formControlName="value" placeholder="0.00">
   </div>
 
-  <button type="submit" [disabled]="transactionForm.invalid">
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <input type="text" id="description" formControlName="description" class="form-control" maxlength="50"
+      placeholder="Some description (optional)">
+  </div>
+
+  <button type="submit" 
+          [disabled]="transactionForm.invalid"
+          [style.background-color]="transactionForm.get('type')?.value === 'INCOME' ? '#28a745' : '#dc3545'">
     Register
   </button>
 </form>
 
-
-<router-outlet/>
+<router-outlet />
