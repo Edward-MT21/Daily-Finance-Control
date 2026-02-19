@@ -1,0 +1,138 @@
+/* 1. CONTENEDOR Y TÍTULO */
+.list-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.form-title {
+  display: table;
+  margin: 0 auto 2rem;
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.form-title::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #4a90e2;
+  margin-top: 5px;
+  border-radius: 2px;
+}
+
+/* 2. DASHBOARD (TARJETAS DE RESUMEN) */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.card {
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.card-label {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.card-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.income .card-value { color: #28a745; }
+.egress .card-value { color: #dc3545; }
+.balance.positive { border-left: 5px solid #28a745; }
+.balance.negative { border-left: 5px solid #dc3545; }
+
+/* 3. PANEL DE FILTROS */
+.filter-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #eee;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filter-group label {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #666;
+}
+
+.filter-group input, .filter-group select {
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+/* 4. TABLA DE MOVIMIENTOS */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th { 
+  background-color: #f8f9fa; 
+  color: #333; 
+}
+
+/* Badges de Tipo */
+.badge-income, .badge-egress {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.badge-income { background-color: #e8f5e9; color: #2e7d32; }
+.badge-egress { background-color: #ffebee; color: #c62828; }
+
+.description-column {
+  color: #7f8c8d;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.empty-message {
+  text-align: center;
+  padding: 2rem !important;
+  color: #95a5a6;
+}

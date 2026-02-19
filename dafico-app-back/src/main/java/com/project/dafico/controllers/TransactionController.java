@@ -22,7 +22,8 @@ public class TransactionController {
     }
 
     @GetMapping
-    public List<Transaction> listAll() {
+    public List<Transaction> findAll() {
         return repository.findAll();
     }
+
 }
