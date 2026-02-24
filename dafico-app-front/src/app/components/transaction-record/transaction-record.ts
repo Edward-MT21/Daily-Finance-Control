@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TransactionService } from '../../services/transaction.service';
-import { RouterOutlet } from '@angular/router';
 import { MasterDataService } from '../../services/master-data.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-transaction-record',
@@ -15,9 +15,9 @@ export class TransactionRecord {
   private fb = inject(FormBuilder);
   masterDataService = inject(MasterDataService);
   private transactionService = inject(TransactionService);
-  
+
   transactionForm!: FormGroup;
-  
+
   categories = this.masterDataService.categories;
 
   ngOnInit(): void {
@@ -36,10 +36,28 @@ export class TransactionRecord {
   onSubmit() {
     if (this.transactionForm.valid) {
       const datos: Transaction = this.transactionForm.value;
-      console.log({ datos });
+
       this.transactionService.save(datos).subscribe({
         next: (res) => {
-          alert('¡Registro guardado con éxito!');
+          // Notificación tipo Toast (Elegante y rápida)
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+
+          Toast.fire({
+            icon: 'success',
+            title: '¡Movimiento guardado con éxito!'
+          });
+
+          // Reseteamos el formulario
           this.transactionForm.reset({
             type: 'INGRESO',
             date: new Date().toISOString().substring(0, 10),
@@ -48,10 +66,17 @@ export class TransactionRecord {
         },
         error: (err) => {
           console.error('Error al guardar:', err);
-          alert('Hubo un error al conectar con el servidor.');
+          // Error visual con estilo Dafico
+          Swal.fire({
+            title: 'Error al guardar',
+            text: 'Hubo un problema al conectar con el servidor. Intenta de nuevo.',
+            icon: 'error',
+            confirmButtonColor: '#4a90e2'
+          });
         }
       });
     }
+
   }
 
 }
