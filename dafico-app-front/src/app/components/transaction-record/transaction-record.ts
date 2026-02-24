@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TransactionService } from '../../services/transaction.service';
 import { RouterOutlet } from '@angular/router';
+import { MasterDataService } from '../../services/master-data.service';
 
 @Component({
   selector: 'app-transaction-record',
@@ -10,10 +11,14 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './transaction-record.css',
 })
 export class TransactionRecord {
+
   private fb = inject(FormBuilder);
-  transactionForm!: FormGroup;
+  masterDataService = inject(MasterDataService);
   private transactionService = inject(TransactionService);
-  categories = ['HOME', 'AGRICULTURE', 'FEEDING', 'TRANSPORT', 'HEALTH'];
+  
+  transactionForm!: FormGroup;
+  
+  categories = this.masterDataService.categories;
 
   ngOnInit(): void {
     // Obtener date actual en formato YYYY-MM-DD
@@ -49,11 +54,4 @@ export class TransactionRecord {
     }
   }
 
-  get filteredCategories() {
-    const type = this.transactionForm.get('type')?.value;
-    if (type === 'INCOME') {
-      return ['HOME', 'INVESTMENT', 'OTHER_INCOME'];
-    }
-    return ['HOME', 'AGRICULTURE', 'FEEDING', 'TRANSPORT'];
-  }
 }

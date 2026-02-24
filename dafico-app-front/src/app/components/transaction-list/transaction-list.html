@@ -37,7 +37,7 @@
       <label>Category:</label>
       <select (change)="updateFilter($event, 'category')">
         <option value="ALL">All Categories</option>
-        @for (cat of categories; track cat) {
+        @for (cat of categories(); track cat) {
         <option [value]="cat">{{cat}}</option>
         }
       </select>
@@ -60,6 +60,11 @@
         </td>
         <td [style.color]="transaction.type === 'INCOME' ? '#28a745' : '#dc3545'">
           <strong>{{ transaction.value | currency }}</strong>
+        </td>
+        <td>
+          <button (click)="deleteTransaction(transaction.id)" class="btn-delete" title="Eliminar">
+            <i class="fas fa-trash"></i> 🗑️
+          </button>
         </td>
       </tr>
       } @empty {

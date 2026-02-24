@@ -16,7 +16,7 @@
   <div class="form-group">
     <label for="category">Categoría:</label>
     <select id="category" formControlName="category" class="form-control">
-      @for (cat of filteredCategories; track cat) {
+      @for (cat of categories(); track cat) {
       <option [value]="cat">{{ cat }}</option>
       }
     </select>

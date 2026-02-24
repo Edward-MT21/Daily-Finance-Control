@@ -1,0 +1,58 @@
+<div class="summary-container">
+
+  <div class="header-row">
+
+    <h2 class="form-title">Category Summary</h2>
+
+    <div class="selectors-container">
+      <div class="filter-item">
+        <label>Month:</label>
+        <select [ngModel]="selectedMonth()" (change)="onMonthChange($event)">
+          @for (month of months; track month.value) {
+          <option [value]="month.value">{{ month.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="filter-item">
+        <label>Year:</label>
+        <select [ngModel]="selectedYear()" (change)="onYearChange($event)">
+          @for (year of years; track year) {
+          <option [value]="year">{{ year }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <table class="excel-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Income</th>
+        <th>Egress</th>
+        <th>Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of summaryData(); track item.name) {
+      <tr>
+        <td class="cat-name">{{ item.name }}</td>
+        <td>{{ item.income | currency }}</td>
+        <td>{{ item.egress | currency }}</td>
+        <td [class.negative]="item.balance < 0">
+          <strong>{{ item.balance | currency }}</strong>
+        </td>
+      </tr>
+      }
+    </tbody>
+    <tfoot>
+      <tr class="totals-row">
+        <td>TOTALS</td>
+        <td class="total-income">{{ totals().income | currency }}</td>
+        <td class="total-egress">{{ totals().egress | currency }}</td>
+        <td class="total-balance">{{ totals().balance | currency }}</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

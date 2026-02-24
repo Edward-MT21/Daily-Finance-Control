@@ -1,0 +1,28 @@
+<div class="charts-container">
+  <h2 class="form-title">Financial Analysis</h2>
+
+  <div class="filter-row">
+    <div class="filter-item">
+      <label>Año:</label>
+      <select (change)="setYear($event)" [ngModel]="selectedYear()">
+        @for (y of years; track y) { <option [value]="y">{{y}}</option> }
+      </select>
+    </div>
+    <div class="filter-item">
+      <label>Mes:</label>
+      <select (change)="setMonth($event)" [ngModel]="selectedMonth()">
+        @for (m of months; track m.value) { <option [value]="m.value">{{m.name}}</option> }
+      </select>
+    </div>
+  </div>
+
+  <div class="chart-box">
+    <h3>Daily Balance (Selected Month)</h3>
+    <canvas #dailyChart></canvas>
+  </div>
+
+  <div class="chart-box">
+    <h3>Monthly balance (Selected year)</h3>
+    <canvas #monthlyChart></canvas>
+  </div>
+</div>

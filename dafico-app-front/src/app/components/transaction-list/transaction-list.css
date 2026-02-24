@@ -136,3 +136,20 @@ th {
   padding: 2rem !important;
   color: #95a5a6;
 }
+
+.btn-delete {
+  background: none;
+  border: none;
+  color: #dc3545; /* Rojo de peligro */
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: transform 0.2s;
+}
+
+.btn-delete:hover {
+  transform: scale(1.2);
+  color: #a71d2a;
+}
+
+.text-success { color: #2ecc71; }
+.text-danger { color: #dc3545; }

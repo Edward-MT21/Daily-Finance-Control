@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { TransactionService } from '../../services/transaction.service';
 import { CurrencyPipe } from '@angular/common';
+import { MasterDataService } from '../../services/master-data.service';
 
 @Component({
   selector: 'app-transaction-list',
@@ -11,7 +12,7 @@ import { CurrencyPipe } from '@angular/common';
 export class TransactionList {
 
   private transactionService = inject(TransactionService);
-  transactions = signal<Transaction[]>([]);
+  allTransactions = signal<Transaction[]>([]);
 
   // Signals for the filters
   filterType = signal<string>('ALL');
@@ -19,7 +20,9 @@ export class TransactionList {
   startDate = signal<string>('');
   endDate = signal<string>('');
 
-  categories = ['HOME', 'AGRICULTURE', 'FEEDING', 'TRANSPORT', 'HEALTH'];
+  masterDataService = inject(MasterDataService);
+
+  categories = this.masterDataService.categories;
 
   ngOnInit() {
     this.setDefaultDates();
@@ -39,13 +42,13 @@ export class TransactionList {
 
   loadTransactions() {
     this.transactionService.findAll().subscribe(data => {
-      this.transactions.set(data)
+      this.allTransactions.set(data)
     });
   }
 
   // LA MAGIA: Esta señal se filtra sola
   filteredTransactions = computed(() => {
-    return this.transactions().filter(t => {
+    return this.allTransactions().filter(t => {
       const matchType = this.filterType() === 'ALL' || t.type === this.filterType();
       const matchCategory = this.filterCategory() === 'ALL' || t.category === this.filterCategory();
       const matchDate = t.date >= this.startDate() && t.date <= this.endDate();
@@ -80,5 +83,24 @@ export class TransactionList {
   totalBalance = computed(() => {
     return this.totalIncomes() - this.totalEgresses();
   });
+
+  deleteTransaction(id: number) {
+    if (confirm('¿Estás seguro de que deseas eliminar este movimiento?')) {
+      this.transactionService.delete(id).subscribe({
+        next: () => {
+          // Actualizamos la lista local después de eliminar con éxito
+          // Si usas signals:
+          this.allTransactions.set(
+            this.allTransactions().filter(t => t.id !== id)
+          );
+          alert('Movimiento eliminado correctamente');
+        },
+        error: (err) => {
+          console.error('Error al eliminar:', err);
+          alert('No se pudo eliminar el movimiento');
+        }
+      });
+    }
+  }
 
 }

@@ -23,7 +23,7 @@ public class Transaction {
     @Column(nullable = false)
     private String category;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
