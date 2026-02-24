@@ -3,11 +3,14 @@ import { TransactionRecord } from './components/transaction-record/transaction-r
 import { TransactionList } from './components/transaction-list/transaction-list';
 import { CategorySummary } from './components/category-summary/category-summary';
 import { FinancialCharts } from './components/financial-charts/financial-charts';
+import { authGuard } from './guards/auth.guard';
+import { Login } from './components/login/login';
 
 export const routes: Routes = [
-    { path: 'transaction-record', component: TransactionRecord },
-    { path: 'transaction-list', component: TransactionList },
-    { path: 'category-summary', component: CategorySummary },
-    { path: 'financial-charts', component: FinancialCharts },
-    { path: '', redirectTo: '/record', pathMatch: 'full' }
+    { path: 'login', component: Login },
+    { path: 'transaction-record', component: TransactionRecord, canActivate: [authGuard] },
+    { path: 'transaction-list', component: TransactionList, canActivate: [authGuard] },
+    { path: 'category-summary', component: CategorySummary, canActivate: [authGuard] },
+    { path: 'financial-charts', component: FinancialCharts, canActivate: [authGuard] },
+    { path: '', redirectTo: '/transaction-record', pathMatch: 'full' }
 ];

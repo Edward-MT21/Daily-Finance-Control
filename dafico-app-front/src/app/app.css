@@ -1,8 +1,11 @@
 /* app.css */
-.main-nav { 
-  text-align: center; 
-  margin-top: 20px; 
-  padding-bottom: 20px;
+.main-nav {
+  display: flex;
+  justify-content: center; /* Centra los botones de navegación */
+  align-items: center;
+  gap: 10px;
+  position: relative; /* Para poder mover el logout con libertad si hiciera falta */
+  padding: 10px 20px 20px 20px;
 }
 
 .main-nav button { 
@@ -38,7 +41,7 @@
   justify-content: center;
   gap: 12px;
   cursor: pointer;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .logo-icon {
@@ -66,4 +69,23 @@
 /* Ajuste para que el contenido no quede pegado al header */
 .content-wrapper {
   padding: 10px;
+}
+
+.logout-btn {
+  background-color: #f8f9fa; /* Fondo claro por defecto */
+  color: #ff4757; /* Texto en rojo */
+  border: 1px solid #ff4757; /* Borde rojo fino */
+  padding: 10px 20px;
+  border-radius: 20px; /* Igual que tus otros botones */
+  cursor: pointer;
+  font-weight: 600;
+  margin-left: 30px; /* Espacio extra para separarlo de la navegación */
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #ff4757;
+  color: white;
+  transform: translateY(-2px); /* Pequeño salto como los otros */
+  box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
 }

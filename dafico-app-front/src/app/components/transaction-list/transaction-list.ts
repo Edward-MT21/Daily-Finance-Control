@@ -2,6 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { TransactionService } from '../../services/transaction.service';
 import { CurrencyPipe } from '@angular/common';
 import { MasterDataService } from '../../services/master-data.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-transaction-list',
@@ -85,22 +86,42 @@ export class TransactionList {
   });
 
   deleteTransaction(id: number) {
-    if (confirm('¿Estás seguro de que deseas eliminar este movimiento?')) {
+Swal.fire({
+    title: 'Remove movement?',
+    text: "This action cannot be undone",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#ff4757', // Rojo para acciones destructivas
+    cancelButtonColor: '#2c3e50',  // El color oscuro de tu marca para cancelar
+    confirmButtonText: 'Yes, delete',
+    cancelButtonText: 'Cancel',
+    reverseButtons: true // Pone el botón de cancelar a la izquierda
+  }).then((result) => {
+    
+    if (result.isConfirmed) {
       this.transactionService.delete(id).subscribe({
         next: () => {
-          // Actualizamos la lista local después de eliminar con éxito
-          // Si usas signals:
+          // Actualizamos la lista local usando signals
           this.allTransactions.set(
             this.allTransactions().filter(t => t.id !== id)
           );
-          alert('Movimiento eliminado correctamente');
+
+          // Feedback de éxito elegante (un toast que desaparece solo)
+          Swal.fire({
+            title: 'Eliminated!',
+            text: 'The movement has been deleted.',
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false
+          });
         },
         error: (err) => {
-          console.error('Error al eliminar:', err);
-          alert('No se pudo eliminar el movimiento');
+          console.error('Delete error:', err);
+          Swal.fire('Error', 'The movement could not be deleted', 'error');
         }
       });
     }
+  });
   }
 
 }

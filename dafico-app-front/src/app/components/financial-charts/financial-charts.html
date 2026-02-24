@@ -3,13 +3,13 @@
 
   <div class="filter-row">
     <div class="filter-item">
-      <label>Año:</label>
+      <label>Year:</label>
       <select (change)="setYear($event)" [ngModel]="selectedYear()">
         @for (y of years; track y) { <option [value]="y">{{y}}</option> }
       </select>
     </div>
     <div class="filter-item">
-      <label>Mes:</label>
+      <label>Month:</label>
       <select (change)="setMonth($event)" [ngModel]="selectedMonth()">
         @for (m of months; track m.value) { <option [value]="m.value">{{m.name}}</option> }
       </select>
