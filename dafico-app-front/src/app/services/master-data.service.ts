@@ -6,7 +6,21 @@ import { Injectable, signal } from '@angular/core';
 export class MasterDataService {
 
   // Usamos una Signal para que sea coherente con el resto de tu app
-  private _categories = signal<string[]>(['HOME', 'AGRICULTURE', 'FEEDING', 'TRANSPORT', 'HEALTH']);
+  private _categories = signal<string[]>([
+    "EMPLOYMENT",
+    "SELF_EMPLOYMENT",
+    "PROPERTY",
+    "AGRICULTURE",
+    "HOUSING",
+    "FOOD",
+    "TRANSPORTATION",
+    "HEALTH",
+    "EDUCATION_DEVELOPMENT",
+    "ENTERTAINMENT_LEISURE",
+    "CLOTHING_PERSONAL_CARE",
+    "FINANCE",
+    "OTHER"
+  ]);
 
   private _months = [
     { value: 0, name: 'January' }, { value: 1, name: 'February' },

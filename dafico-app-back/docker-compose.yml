@@ -1,0 +1,38 @@
+name: dafico-system
+
+services:
+  db:
+    image: postgres:15
+    container_name: dafico-db-container
+    environment:
+      POSTGRES_DB: daficodb
+      POSTGRES_USER: dafico
+      POSTGRES_PASSWORD: dafico123
+    ports:
+      - "5433:5432"
+    volumes:
+      - dafico-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U dafico -d daficodb" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    image: dafico-image:v1
+    container_name: dafico-app-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy # <--- Solo arranca cuando la DB esté lista
+    environment:
+      # Aquí está el truco: el host es el nombre del servicio "db"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/daficodb
+      SPRING_DATASOURCE_USERNAME: dafico
+      SPRING_DATASOURCE_PASSWORD: dafico123
+
+volumes:
+  dafico-db-data:
+    name: dafico-db-data-persistence # <--- Así aparecerá en Docker Desktop

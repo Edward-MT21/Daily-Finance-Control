@@ -24,7 +24,7 @@ export class Login {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         error: () => {
-          this.errorMessage = 'Usuario o contraseña incorrectos';
+          this.errorMessage = 'Incorrect username and password';
         }
       });
     }
