@@ -20,7 +20,7 @@ services:
 
   app:
     build: .
-    image: dafico-image:v1
+    image: edwarddocker270/dafico-image:v1
     container_name: dafico-app-container
     ports:
       - "8080:8080"
