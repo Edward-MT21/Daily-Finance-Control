@@ -3,10 +3,12 @@ import { TransactionService } from '../../services/transaction.service';
 import { CurrencyPipe } from '@angular/common';
 import { MasterDataService } from '../../services/master-data.service';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TransactionEditModal } from '../transaction-edit-modal/transaction-edit-modal';
 
 @Component({
   selector: 'app-transaction-list',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, TransactionEditModal],
   templateUrl: './transaction-list.html',
   styleUrl: './transaction-list.css',
 })
@@ -24,6 +26,8 @@ export class TransactionList {
   masterDataService = inject(MasterDataService);
 
   categories = this.masterDataService.categories;
+
+  selectedTransaction: any | null = null; // Controla qué transacción se está editando
 
   ngOnInit() {
     this.setDefaultDates();
@@ -120,6 +124,26 @@ export class TransactionList {
             Swal.fire('Error', 'The movement could not be deleted', 'error');
           }
         });
+      }
+    });
+  }
+
+
+  // 1. Abre el modal al asignar la transacción seleccionada
+  openEditModal(transaction: Transaction): void {
+    this.selectedTransaction = { ...transaction }; // Usamos una copia para no alterar la lista antes de guardar
+  }
+
+  // 2. Procesa la actualización que emite el modal
+  handleUpdate(updatedTransaction: Transaction): void {
+    this.transactionService.update(updatedTransaction).subscribe({
+      next: () => {
+        this.selectedTransaction = null; // Cierra el modal
+        this.loadTransactions(); // Refresca la tabla con los datos nuevos
+      },
+      error: (err) => {
+        alert('Error al actualizar el registro');
+        console.error(err);
       }
     });
   }

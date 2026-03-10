@@ -5,5 +5,6 @@ interface Transaction {
     date: string;
     value: number;
     description: string;
+    status: string;
 
 }

@@ -38,9 +38,23 @@
       placeholder="Some description (optional)">
   </div>
 
-  <button type="submit" 
-          [disabled]="transactionForm.invalid"
-          [style.background-color]="transactionForm.get('type')?.value === 'INCOME' ? '#28a745' : '#dc3545'">
+  <div class="status-container">
+    <input type="checkbox" id="isPending" (change)="togglePending($event)"
+      [checked]="transactionForm.get('status')?.value === 'PENDING'">
+
+    <label for="isPending">
+      Mark as pending
+    </label>
+  </div>
+
+  @if (transactionForm.get('status')?.value === 'PENDING') {
+  <div class="alert-pending">
+    <small>⚠️ The record will be saved as <strong>PENDIENTE</strong></small>
+  </div>
+  }
+
+  <button type="submit" [disabled]="transactionForm.invalid"
+    [style.background-color]="transactionForm.get('type')?.value === 'INCOME' ? '#28a745' : '#dc3545'">
     Register
   </button>
 </form>

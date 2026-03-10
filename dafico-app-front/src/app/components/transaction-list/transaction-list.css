@@ -153,3 +153,31 @@ th {
 
 .text-success { color: #2ecc71; }
 .text-danger { color: #dc3545; }
+
+
+/* Contenedor para alinear el valor y el badge */
+.value-container {
+  display: flex;
+  flex-direction: column; /* El badge aparecerá debajo del monto */
+  align-items: flex-end;  /* Alinea todo a la derecha para columnas numéricas */
+  gap: 2px;
+}
+
+/* Estilo para el badge de PENDING */
+.badge-pending {
+  background-color: #f7d259; /* Fondo amarillo suave */
+  color: #856404;            /* Texto ocre oscuro */
+  border: 1px solid #ffeeba; /* Borde sutil */
+  font-size: 0.65rem;        /* Tamaño pequeño pero legible */
+  font-weight: bold;
+  padding: 1px 6px;
+  border-radius: 10px;       /* Bordes redondeados tipo píldora */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+/* Efecto opcional: Si la fila está pendiente, el valor se ve un poco más tenue */
+td[style*="#856404"] strong {
+  opacity: 0.9;
+}

@@ -38,4 +38,19 @@ public class TransactionService {
         }
     }
 
+    public Transaction updateTransaction(Transaction details) {
+        // Buscamos la transacción existente
+        Transaction transaction = transactionRepository.findById(details.getId())
+                .orElseThrow(() -> new RuntimeException("Transacción no encontrada con id: " + details.getId()));
+
+        // Actualizamos los campos necesarios
+        transaction.setDate(details.getDate());
+        transaction.setValue(details.getValue());
+        transaction.setDescription(details.getDescription());
+        transaction.setStatus(details.getStatus()); // El nuevo campo PENDING/COMPLETED
+
+        // Guardamos y retornamos la entidad actualizada
+        return transactionRepository.save(transaction);
+    }
+
 }

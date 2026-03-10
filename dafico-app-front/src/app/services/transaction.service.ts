@@ -19,4 +19,9 @@ export class TransactionService {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 
+    update(transaction: Transaction): Observable<any> {
+        // Enviamos el objeto actualizado al endpoint específico del ID
+        return this.http.put(`${this.apiUrl}`, transaction);
+    }
+
 }

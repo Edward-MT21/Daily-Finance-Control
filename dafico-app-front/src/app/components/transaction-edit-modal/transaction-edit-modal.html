@@ -1,0 +1,37 @@
+<div class="modal-backdrop">
+    <div class="modal-card">
+        <header>
+            <h3>Movement edit</h3>
+            <button class="close-btn" (click)="close.emit()">×</button>
+        </header>
+
+        <form [formGroup]="editForm" (ngSubmit)="onSave()">
+            <div class="form-body">
+
+                <label>Date</label>
+                <input type="date" formControlName="date">
+
+                <label>Description</label>
+                <input type="text" formControlName="description">
+
+                <label>Value</label>
+                <input type="number" formControlName="value">
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="editPending" [checked]="editForm.get('status')?.value === 'PENDING'"
+                        (change)="toggleStatus($event)">
+                    <label for="editPending">Mark as pending</label>
+                </div>
+
+                @if (editForm.get('status')?.value === 'PENDING') {
+                <p class="status-note">⚠️ The record will be saved as PENDING.</p>
+                }
+            </div>
+
+            <footer>
+                <button type="button" class="btn-cancel" (click)="close.emit()">Cancel</button>
+                <button type="submit" class="btn-save" [disabled]="editForm.invalid">Update</button>
+            </footer>
+        </form>
+    </div>
+</div>

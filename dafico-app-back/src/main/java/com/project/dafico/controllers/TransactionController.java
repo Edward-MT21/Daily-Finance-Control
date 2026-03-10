@@ -33,4 +33,14 @@ public class TransactionController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody Transaction transaction) {
+        try {
+            Transaction updated = transactionService.updateTransaction(transaction);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(500).body("Error de integridad: " + e.getMessage());
+        }
+    }
+
 }

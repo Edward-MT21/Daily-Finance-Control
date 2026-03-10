@@ -58,10 +58,18 @@
         <td class="description-column">
           {{ transaction.description || '---' }}
         </td>
-        <td [style.color]="transaction.type === 'INCOME' ? '#28a745' : '#dc3545'">
-          <strong>{{ transaction.value | currency }}</strong>
+        <td
+          [style.color]="transaction.status === 'PENDING' ? '#856404' : (transaction.type === 'INCOME' ? '#28a745' : '#dc3545')">
+          <div class="value-container">
+            <strong>{{ transaction.value | currency }}</strong>
+
+            @if (transaction.status === 'PENDING') {
+            <span class="badge-pending">PENDIENTE</span>
+            }
+          </div>
         </td>
         <td>
+          <button class="btn-edit" (click)="openEditModal(transaction)">✏️</button>
           <button (click)="deleteTransaction(transaction.id)" class="btn-delete" title="Eliminar">
             <i class="fas fa-trash"></i> 🗑️
           </button>
@@ -76,3 +84,9 @@
 
   </table>
 </div>
+
+@if (selectedTransaction) {
+<transaction-edit-modal [transaction]="selectedTransaction" (close)="selectedTransaction = null"
+  (saved)="handleUpdate($event)">
+</transaction-edit-modal>
+}

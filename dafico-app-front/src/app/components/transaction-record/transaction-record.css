@@ -118,3 +118,34 @@ button:not(:disabled):hover {
     padding: 1.5rem;
   }
 }
+
+
+.status-container {
+  display: flex;         /* Alinea los elementos en fila */
+  align-items: center;   /* Los centra verticalmente */
+  gap: 10px;             /* Crea el espacio entre el checkbox y el texto */
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.status-container input[type="checkbox"] {
+  width: 18px;           /* Un tamaño un poco más moderno */
+  height: 18px;
+  cursor: pointer;
+}
+
+.status-container label {
+  margin-bottom: 0;      /* Quita el margen que Bootstrap pone por defecto */
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.alert-pending {
+  color: #856404;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-top: 5px;
+  display: inline-block;
+}

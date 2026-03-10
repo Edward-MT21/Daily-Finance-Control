@@ -2,7 +2,7 @@ spring:
   application:
     name: dafico
   datasource:
-    url: jdbc:postgresql://localhost:5432/daficodb
+    url: jdbc:postgresql://localhost:5433/daficodb
     username: dafico
     password: dafico123
     driver-class-name: org.postgresql.Driver

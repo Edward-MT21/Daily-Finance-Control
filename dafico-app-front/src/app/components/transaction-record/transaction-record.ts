@@ -29,7 +29,8 @@ export class TransactionRecord {
       category: ['HOME', [Validators.required]],
       date: [hoy, Validators.required],      // date current by default
       value: ['', [Validators.required, Validators.min(1)]],
-      description: ['']
+      description: [''],
+      status: ['COMPLETED']
     });
   }
 
@@ -76,6 +77,15 @@ export class TransactionRecord {
         }
       });
     }
+
+  }
+
+  togglePending(event: any) {
+    const isChecked = event.target.checked;
+    // Actualizamos el valor del formulario internamente
+    this.transactionForm.patchValue({
+      status: isChecked ? 'PENDING' : 'COMPLETED'
+    });
 
   }
 
