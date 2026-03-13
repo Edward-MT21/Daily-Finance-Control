@@ -20,14 +20,14 @@ export class TransactionRecord {
 
   categories = this.masterDataService.categories;
 
+  hoy = new Date().toISOString().substring(0, 10);
+
   ngOnInit(): void {
-    // Obtener date actual en formato YYYY-MM-DD
-    const hoy = new Date().toISOString().substring(0, 10);
 
     this.transactionForm = this.fb.group({
       type: ['INCOME', Validators.required], // 'INCOME' by default
-      category: ['HOME', [Validators.required]],
-      date: [hoy, Validators.required],      // date current by default
+      category: [null, [Validators.required]],
+      date: [this.hoy, Validators.required],      // date current by default
       value: ['', [Validators.required, Validators.min(1)]],
       description: [''],
       status: ['COMPLETED']
@@ -60,9 +60,12 @@ export class TransactionRecord {
 
           // Reseteamos el formulario
           this.transactionForm.reset({
-            type: 'INGRESO',
-            date: new Date().toISOString().substring(0, 10),
-            value: ''
+            type: 'INCOME',
+            category: null,
+            date: this.hoy,
+            value: '',
+            description: '',
+            status: 'COMPLETED'
           });
         },
         error: (err) => {
