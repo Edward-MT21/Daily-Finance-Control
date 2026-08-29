@@ -4,6 +4,17 @@ import { TransactionService } from '../../services/transaction.service';
 import { MasterDataService } from '../../services/master-data.service';
 import Swal from 'sweetalert2';
 
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+// Obtiene el ISO string con la hora y desfase exacto de Colombia
+const dateColombia = dayjs().tz('America/Bogota').format(); 
+// Resultado esperado: 2026-08-28T21:49:00-05:00
+
 @Component({
   selector: 'app-transaction-record',
   imports: [ReactiveFormsModule],
@@ -20,7 +31,12 @@ export class TransactionRecord {
 
   categories = this.masterDataService.categories;
 
-  hoy = new Date().toISOString().substring(0, 10);
+  //hoy = new Date().toISOString().substring(0, 10); //toISOString() convierte siempre la fecha y hora actual al estándar UTC (Tiempo Universal Coordinado), ignorando la zona horaria local de tu equipo.  Colombia se encuentra en la zona horaria UTC-5 (es decir, 5 horas por detrás del meridiano de Greenwich).
+  hoy = dateColombia;
+
+
+
+
 
   ngOnInit(): void {
 
@@ -32,6 +48,9 @@ export class TransactionRecord {
       description: [''],
       status: ['COMPLETED']
     });
+
+    console.log("hoy", this.hoy)
+    console.log("new Date().toISOString()", new Date().toISOString())
   }
 
   onSubmit() {
